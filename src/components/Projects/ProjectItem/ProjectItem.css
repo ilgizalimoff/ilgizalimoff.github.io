@@ -1,0 +1,34 @@
+.project_content {
+    margin: 15px 0px;
+    border: 2px solid #303030;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 4px #303030;
+    text-align: justify;
+}
+
+.project_title {
+    text-align: center;
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+.project_description {
+    text-indent: 30px;
+}
+
+.project_link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+
+}
+
+.project_link a {
+    color: blue;
+}
+
+.project_link a:nth-child(1) {
+    margin-right: 15px;
+}

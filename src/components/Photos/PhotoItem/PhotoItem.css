@@ -1,0 +1,22 @@
+.PhotoItem {
+    width: 30%;
+    text-align: center;
+}
+
+.PhotoItem img {
+    width: 90%;
+    margin: 5px;
+    border-radius: 30%;
+}
+
+@media(max-width:480px) {
+    .PhotoItem img {
+        width: 200px;
+        margin: 5px;
+        border-radius: 30%;
+    }
+
+    .PhotoItem {
+        width: 100%;
+    }
+}
