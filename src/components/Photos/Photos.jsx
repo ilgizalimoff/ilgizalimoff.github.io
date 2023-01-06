@@ -15,7 +15,7 @@ export default function Photos() {
     <div className='Photos'>
       {
         photos.map(photo =>
-          <PhotoItem key={photos.id} photo={photo} />
+          <PhotoItem photo={photo} />
         )
       }
 

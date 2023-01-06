@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: whitesmoke;
+}
+
 li {
   list-style: none;
 }
@@ -12,7 +16,8 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-#vksvg{
+
+#vksvg {
   width: 60px;
   color: aqua;
   margin-top: 100px;

@@ -1,32 +1,34 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import './Header.css';
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { constNavLinks } from '../../constants/constants';
 
-export default  function Header() {
-    function showMenu() {
-        let menu = document.querySelector('.menu')
-        menu.style.display == 'block'
-            ?
-            menu.style.display = 'none'
-            :
-            menu.style.display = 'block'
+export default function Header() {
+    const menuRefItems = useRef()
+    const location = useLocation();
+    const active = useSelector(state => state.activeItem)
+    const [activeItem, setActiveItem] = useState(active)
+    const links = constNavLinks
+    const dispatch = useDispatch()
+    const disp = useSelector(state => state.burgerReducer.display)
+    
+    const setActiveClass = (activeItem) => {
+        dispatch({ type: 'SET_ACTIVE', payload: activeItem })
+        setActiveItem(activeItem)
+        localStorage.setItem('activeItem', `${activeItem}`)
     }
 
-    function hideMenu() {
-        let menu = document.querySelector('.menu')
-        menu.style.display = 'none'
+    const showMenu = (menuRefItems, disp) => {
+        dispatch({ type: 'SET_VISIBLE_TRUE', payload: { menuRefItems, disp } })
     }
 
-    const [links, setLinks] = useState([
-        { id: 1, link: '/main', value: 'Главная' },
-        { id: 2, link: '/projects', value: 'Проекты' },
-        { id: 3, link: '/contacts', value: 'Контакты' },
-        { id: 4, link: '/photos', value: 'Фото' }
-    ])
     return (
         <div className="Header">
             <div className='header_container'>
-                <div onClick={showMenu} className="menu_burger">
+                <div
+                    onClick={() => showMenu(menuRefItems.current, disp)}
+                    className="menu_burger">
                     <span />
                 </div>
                 <p>
@@ -36,23 +38,34 @@ export default  function Header() {
                     }
                 </p>
                 <nav className='nav' >
-                    {links.map(link =>
+                    {links.map((link, index) =>
                         <li key={link.id}>
-                            <Link to={link.link}>{link.value}</Link>
+                            <NavLink
+                                className={activeItem == index &&
+                                    location.pathname == link.link
+                                    ? 'active'
+                                    : ''}
+                                onClick={() => setActiveClass(index)}
+                                to={link.link}>{link.value}
+                            </NavLink>
                         </li>
                     )}
                 </nav>
 
-                <div style={{ display: ' none' }} className='menu'>
+                <div style={{ display: disp }}
+                    ref={menuRefItems}
+                    className='menu'>
                     <div className="menu_content">
                         {links.map(link =>
-                            <li key={link.id} onClick={hideMenu}>
-                                <Link to={link.link}>{link.value}</Link>
-                            </li>
+                            <Link to={link.link}>
+                                <li key={link.id} >
+                                    {link.value}
+                                </li>
+                            </Link>
                         )}
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

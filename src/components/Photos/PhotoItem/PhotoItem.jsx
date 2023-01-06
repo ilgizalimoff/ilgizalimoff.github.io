@@ -4,7 +4,7 @@ import './PhotoItem.css'
 export default function PhotoItem({photo}) {
     return (
         <div className="PhotoItem">
-            <img src={photo.href}
+            <img key={photo.id} src={photo.href}
                 alt="Тут должно быть фото" />
             <p >{photo.body}</p>
         </div>
