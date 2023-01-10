@@ -1,18 +1,26 @@
 import React from 'react'
-import './ProjectItem.css'
+import classes from './ProjectItem.module.css'
 
-export default function Project({ project }) {
+export default function ProjectItem({ project }) {
     return (
-        <div className="project_content">
-            <div className="project_title">
+        <div className={classes.project_content}>
+
+            <div className={classes.project_title}>
                 {project.title}
             </div>
-            <div className="project_description">
+
+            <div className={classes.project_description}>
                 {project.body}
             </div>
-            <div className="project_link">
-                <a href={project.linkGithiub}>Открыть исходники</a>
-                <a href={project.linkTry}>Попробовать</a>
+
+            <div className={classes.project_link}>
+                {project.hasOwnProperty('linkTry')
+                    ? <>
+                        <a href={project.linkGithiub}>Открыть исходники</a>
+                        <a href={project.linkTry}>Попробовать</a>
+                    </>
+                    : <a href={project.linkGithiub}>Открыть исходники</a>
+                }
             </div>
         </div>
     )

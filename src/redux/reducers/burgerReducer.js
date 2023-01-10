@@ -1,15 +1,18 @@
 const burgerDefaultState = {
     display: 'none',
-    menuRefItems: null
 }
 
 export const burgerReducer = (state = burgerDefaultState, action) => {
     switch (action.type) {
-        case 'SET_VISIBLE_TRUE':
+        case 'SET_VISIBLE':
             return {
                 ...state, display: state.display == 'none'
-                    ? action.payload.menuRefItems.style.display = 'block'
-                    : action.payload.menuRefItems.style.display = 'none'
+                    ? 'block'
+                    : 'none'
+            }
+        case 'SET_VISIBLE_FALSE':       
+            return {
+                ...state, display: 'none'
             }
         default:
             return state

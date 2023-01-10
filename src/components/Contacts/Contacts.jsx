@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import './Contacts.css'
-import axios from 'axios'
-import { contactUrl, iconArray } from '../../constants/constants'
+import classes from './Contacts.module.css'
+import { iconArray } from '../../constants/constants'
+import { useDispatch, useSelector } from 'react-redux'
+import PostService from '../../API/PostService'
 
 export default function Contacts() {
-  const [contacts, setContacts] = useState([]);
-
-  async function getContacts() {
-    await axios.get(contactUrl
-    ).then((resp) => {
-      setContacts(resp.data)
-    })
-  }
+  const dispatch = useDispatch()
+  const contacts = useSelector(state => state.getContactsReducer.contacts)
 
   useEffect(() => {
-    getContacts()
+    dispatch(PostService.getContacts())
   }, [])
 
   return (
-    <div className='contacts'>
-      <div className="contacts_content">
+    <div className={classes.contacts}>
+      <div className={classes.contacts_content}>
         {
           contacts.map((contact, index) =>
-            <div key={contact.id} className="contacts_content-item">
+            <div key={contact.id} className={classes.contacts_content_item}>
               <p>{contact.value}</p>
-              <a className='contanct_icon' href={contact.href}>
+              <a className={classes.contanct_icon} href={contact.href}>
                 <img src={iconArray[index]} alt={contact.value} />
               </a>
             </div>
